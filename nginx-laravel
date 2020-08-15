@@ -6,9 +6,9 @@ server {
 server {
 	listen 443 ssl;
 	root /var/www/tickets/public;
-    index index.html index.htm index.php index.nginx-debian.html;
+    	index index.html index.htm index.php index.nginx-debian.html;
 
-    server_name nhccpmo.com www.nhccpmo.com ;
+    	server_name nhccpmo.com www.nhccpmo.com ;
  	
 	charset utf-8;
         #client_max_body_size 4M;
