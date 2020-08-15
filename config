@@ -1,0 +1,28 @@
+server {
+	listen 80;
+	server_name www.nhccpmo.com nhccpmo.com;
+	rewrite ^/(.*) https://nhccpmo.com/$1 permanent;
+}
+server {
+	listen 443 ssl;
+	root /var/www/tickets/public;
+    index index.html index.htm index.php index.nginx-debian.html;
+
+    server_name nhccpmo.com www.nhccpmo.com ;
+ 	
+	charset utf-8;
+        #client_max_body_size 4M;
+
+	    ssl_certificate /etc/cloudflare/nhcc.com.pem;
+        ssl_certificate_key /etc/cloudflare/nhcc.com.key;
+
+        location / {
+               try_files $uri $uri/ /index.php$is_args$args;
+	    }
+
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        }
+}
+
