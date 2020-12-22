@@ -1,0 +1,18 @@
+[program:laravel-worker]
+process_name=%(ticket_notification)s_%(notification_sendemail)02d
+command=php /var/www/ticketing-system/artisan queue:work sqs --sleep=3 --tries=3 --max-time=3600
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
+user=forge
+numprocs=8
+redirect_stderr=true
+stdout_logfile=/var/www/worker.log
+stopwaitsecs=3600
+
+
+sudo supervisorctl reread
+/etc/supervisor/conf.d
+sudo supervisorctl update
+sudo supervisorctl start laravel-worker:*
